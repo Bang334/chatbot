@@ -8544,3 +8544,48 @@ html:has(.drawer-open.drawer-open) {
     background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity)));
   }
 }
+.SaveHistory{
+  width: 100px;
+  background: linear-gradient(30deg, rgb(211, 115, 198), rgb(106, 159, 192));
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: #000;
+  font-weight: 600;
+  transition: transform 0.3s ease;
+}
+.wrap-header{
+  display: flex;
+  justify-content: space-between;
+}
+#account-modal{
+  position: absolute; 
+  left: 500px;
+  top: 240px;
+  background: linear-gradient(30deg, rgb(211, 115, 198), rgb(106, 159, 192));
+  padding: 15px;
+  border-radius: 10px;
+}
+#account-btn{
+  background: linear-gradient(30deg, rgb(211, 115, 198), rgb(106, 159, 192));
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: #000;
+  font-weight: 600;
+  transform: scale(1);
+  transition: transform 0.3s ease;
+}
+#account-btn:hover, .SaveHistory:hover,body #close-modal:hover{
+  transform: scale(1.2);
+}
+.black{
+  color: #000;
+}
+body #close-modal{
+  padding: 5px 15px;
+  background-color: #de5726;
+  transform: scale(1);
+  transition: transform 0.3s ease;
+}
+#register-btn{
+  width: 103px;
+}

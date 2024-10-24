@@ -8,7 +8,12 @@
   </head>
     <body class="mx-auto rounded-lg h-screen flex flex-col bg-base-100">
       <div class="p-4">
-        <h2 class="text-lg font-semibold">Python Assistant</h2>
+        <div class="wrap-header">
+          <h2 class="text-lg font-semibold">Python Assistant</h2>
+          <button class="account" id="account-btn">Tài khoản</button>
+          <button class="logout hidden" id="logout-btn">Đăng xuất</button>
+        </div>
+        <button class="SaveHistory">Lịch Sử</button>
       </div>
       <div class="flex-grow overflow-y-auto p-4" id="chat-box">
         <!-- Tin nhắn của người dùng -->
@@ -25,6 +30,26 @@
         <div class="flex pb-1">
           <input type="text" id="user-message" placeholder="Type your message..." class="input flex-grow pb-1 input-primary" />
           <button class="btn mx-2 btn-primary" id="send-btn">Send</button>
+        </div>
+      </div>
+      <div id="account-modal" class="hidden fixed inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded-lg">
+          <div class="wrap-header">
+            <h2 class="text-xl font-semibold black" style="font-size: 20px; margin-left: 225px;">Tài khoản</h2>
+            <button id="close-modal" class="btn btn-secondary">Đóng</button>
+          </div>
+          <div class="form-section">
+            <h3 class="text-lg font-semibold black">Đăng nhập</h3>
+            <input type="text" id="login-username" placeholder="Tên tài khoản" class="input mb-2" value="">
+            <input type="password" id="login-password" placeholder="Mật khẩu" class="input mb-2" value="">
+            <button class="btn btn-primary" id="login-btn">Đăng nhập</button>
+          </div>  
+          <div class="form-section">
+            <h3 class="text-lg font-semibold black">Đăng ký</h3>
+            <input type="text" id="register-username" placeholder="Tên tài khoản" class="input mb-2" value="">
+            <input type="password" id="register-password" placeholder="Mật khẩu" class="input mb-2" value="">
+            <button class="btn btn-primary" id="register-btn">Đăng ký</button>
+          </div>
         </div>
       </div>
       <script src="./static/main.js"></script>
