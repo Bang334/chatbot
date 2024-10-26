@@ -43,31 +43,50 @@ window.onload = function () {
   document.getElementById("user-message").focus();
 }
 
-// Xử lý lưu lịch sử trò chuyện
 document.querySelector('.SaveHistory').addEventListener('click', async () => {
-  const response = await fetch('/api/history');
-  const data = await response.json();
+  try {
+      const response = await fetch('/api/history');
+      const data = await response.json();
 
-  const chatBox = document.getElementById('chat-box');
-  chatBox.innerHTML = '';  // Xóa nội dung hiện tại trong khung chat
+      const chatBox = document.getElementById('chat-box');
+      chatBox.innerHTML = '';  
+      if (data.history.length === 0) {
+        alert("Lịch sử trò chuyện rỗng.");
+        return; 
+      }
+      console.log(data)
+      data.history.forEach(session => {
+          // const sessionHeader = document.createElement('h3');
+          // sessionHeader.textContent = `Session ID: ${session.session_id}`;
+          // chatBox.appendChild(sessionHeader);
 
-  // Hiển thị từng bản ghi trong lịch sử
-  data.history.forEach(record => {
-      const userMessageDiv = document.createElement('div');
-      userMessageDiv.className = 'chat chat-end';
-      userMessageDiv.innerHTML = `<div class="py-3 px-5 rounded-full bg-mes_bg text-mes_te">${record.message}</div>`;
-      chatBox.appendChild(userMessageDiv);
-      const botResponseDiv = document.createElement('div');
-      botResponseDiv.className = 'chat chat-start';
-      botResponseDiv.innerHTML = `<div class="py-3 px-5 rounded-full bg-mes_bg text-mes_te">${record.response}</div>`;
-      chatBox.appendChild(botResponseDiv);
-      const timeDiv = document.createElement('div');
-      timeDiv.className = 'chat-time text-gray-400 text-sm'; 
-      const timestamp = new Date(record.timestamp); 
-      timeDiv.innerHTML = `<div>${timestamp.toLocaleString()}</div>`; 
-      chatBox.appendChild(timeDiv);
-  });
+          const displayedMessages = new Set();
+
+          session.conversation.forEach(record => {
+              const messageKey = `${record.role}-${record.parts}`;
+              if (!displayedMessages.has(messageKey)) {
+                  displayedMessages.add(messageKey);
+                  const messageDiv = document.createElement('div');
+                  messageDiv.className = record.role === 'user' ? 'chat chat-end' : 'chat chat-start';
+                  messageDiv.innerHTML = `<div class="py-3 px-5 rounded-full bg-mes_bg text-mes_te">${record.parts}</div>`;
+                  chatBox.appendChild(messageDiv);
+              }
+          });
+          const timeDiv = document.createElement('div');
+          timeDiv.className = 'chat-time text-gray-400 text-sm';
+          const timestamp = new Date(); 
+          timeDiv.innerHTML = `<div>${timestamp.toLocaleString()}</div>`;
+          chatBox.appendChild(timeDiv);
+
+          const divider = document.createElement('hr');
+          divider.className = 'session-divider'; // Thêm class để định dạng nếu cần
+          chatBox.appendChild(divider);
+      });
+  } catch (error) {
+      console.error('Error fetching chat history:', error);
+  }
 });
+
 
 // Xử lý nút tài khoản
 document.getElementById("account-btn").addEventListener("click", () => {

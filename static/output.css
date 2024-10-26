@@ -8565,7 +8565,7 @@ html:has(.drawer-open.drawer-open) {
   padding: 15px;
   border-radius: 10px;
 }
-#account-btn{
+#account-btn,#logout-btn{
   background: linear-gradient(30deg, rgb(211, 115, 198), rgb(106, 159, 192));
   border-radius: 5px;
   padding: 5px 10px;
@@ -8574,7 +8574,7 @@ html:has(.drawer-open.drawer-open) {
   transform: scale(1);
   transition: transform 0.3s ease;
 }
-#account-btn:hover, .SaveHistory:hover,body #close-modal:hover{
+#account-btn:hover, .SaveHistory:hover,body #close-modal:hover,#logout-btn:hover{
   transform: scale(1.2);
 }
 .black{
@@ -8588,4 +8588,8 @@ body #close-modal{
 }
 #register-btn{
   width: 103px;
+}
+.session-divider {
+  border: 1px solid #ccc;
+  margin: 20px 0; 
 }
