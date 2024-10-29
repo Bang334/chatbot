@@ -4,14 +4,14 @@ import dotenv
 import json
 from flask import Flask, jsonify, request, render_template, session
 import copy
-from models.chat_history import ChatHistory
+from models.chat_historyDB import ChatHistory
 from werkzeug.security import generate_password_hash, check_password_hash
 from bson import ObjectId
-from service.load import db_service  
+from service.dbservice import db_service 
 
 dotenv.load_dotenv()
-
-genai.configure(api_key='AIzaSyBflKFS4hmOd34GGlVRcLimFueb_WTnkV4')
+api_key = os.getenv('GEMINI_API_KEY')
+genai.configure(api_key=api_key)
 generation_config = {
     "temperature": 1,
     "top_p": 0.95,
@@ -63,13 +63,13 @@ def receive_message():
                 session_id = str(ObjectId())
                 session['session_id'] = session_id  
 
-            chat_data = ChatHistory({
-                "username": username,
-                "message": message,
-                "response": response_message,
-                "session_id": session_id
-            })
-            chat_data.save()
+            chat_data = ChatHistory(
+                username=username,
+                message=message,
+                response=response_message,
+                session_id=session_id
+            )
+            db_service.save_chat_history(chat_data)
         else:
             response_message = "Bạn cần đăng nhập để lưu lịch sử trò chuyện."
     else:
